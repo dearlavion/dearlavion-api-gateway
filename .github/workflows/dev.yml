@@ -7,7 +7,7 @@ on:
       - develop
 
 jobs:
-  build-and-deploy-auth:
+  build-and-deploy-gateway:
     runs-on: ubuntu-latest
 
     steps:
