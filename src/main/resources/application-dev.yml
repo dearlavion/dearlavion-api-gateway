@@ -22,7 +22,7 @@ spring:
           predicates:
             - Path=/api/auth/**
           filters:
-            - RewritePath=/api/auth/(?<segment>.*), /${segment}
+            - RewritePath=/api/(?<segment>.*), /${segment}
 
         # ======================
         # Core Service
@@ -48,7 +48,7 @@ spring:
           predicates:
             - Path=/api/notification/**
           filters:
-            - RewritePath=/api/notification/(?<segment>.*), /${segment}
+            - RewritePath=/api/(?<segment>.*), /${segment}
 
         # ======================
         # Kafka UI (AKHQ)
@@ -59,3 +59,4 @@ spring:
             - Path=/api/kafka/**
           filters:
             - StripPrefix=2
+            - AddRequestHeader=X-Forwarded-Prefix, /api/kafka
