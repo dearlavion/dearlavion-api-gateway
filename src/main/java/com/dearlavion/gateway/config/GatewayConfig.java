@@ -28,7 +28,8 @@ public class GatewayConfig {
     public KeyResolver userOrIpKeyResolverBean() {
         return exchange -> {
 
-            System.out.println("Found userOrIpKeyResolverBean");
+            long timestamp = System.currentTimeMillis();
+            System.out.println("Found userOrIpKeyResolverBean @ " + timestamp);
 
             String token = exchange.getRequest()
                     .getHeaders()
@@ -37,17 +38,21 @@ public class GatewayConfig {
             if (token != null && token.startsWith("Bearer ")) {
                 String user = extractUser(token);
                 if (user != null) {
-                    System.out.println("[userOrIpKeyResolverBean] key via username");
+                    String key = user + ":" + timestamp;
+                    System.out.println("[userOrIpKeyResolverBean] key via USER = " + key);
                     return Mono.just(user);
                 }
             }
 
-            System.out.println("[userOrIpKeyResolverBean] key via IP");
             // 🔥 fallback to IP
             String ip = exchange.getRequest()
                     .getRemoteAddress()
                     .getAddress()
                     .getHostAddress();
+
+            String key = ip + ":" + timestamp;
+            System.out.println("[userOrIpKeyResolverBean] key via IP = " + key);
+
 
             return Mono.just(ip);
         };
