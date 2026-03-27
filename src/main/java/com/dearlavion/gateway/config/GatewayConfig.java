@@ -22,15 +22,21 @@ public class GatewayConfig {
     public KeyResolver userOrIpKeyResolverBean() {
         return exchange -> {
 
+            System.out.println("Found userOrIpKeyResolverBean");
+
             String token = exchange.getRequest()
                     .getHeaders()
                     .getFirst("Authorization");
 
             if (token != null && token.startsWith("Bearer ")) {
                 String user = extractUser(token);
-                return Mono.just(user);
+                if (user != null) {
+                    System.out.println("[userOrIpKeyResolverBean] key via username");
+                    return Mono.just(user);
+                }
             }
 
+            System.out.println("[userOrIpKeyResolverBean] key via IP");
             // 🔥 fallback to IP
             String ip = exchange.getRequest()
                     .getRemoteAddress()
