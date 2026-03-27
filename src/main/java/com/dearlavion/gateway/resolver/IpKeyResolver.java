@@ -8,7 +8,7 @@ import reactor.core.publisher.Mono;
 @Configuration
 public class IpKeyResolver {
 
-    @Bean
+    //@Bean
     public KeyResolver ipKeyResolverBean() {
         return exchange -> Mono.just(
                 exchange.getRequest()

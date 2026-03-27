@@ -8,7 +8,7 @@ import reactor.core.publisher.Mono;
 @Configuration
 public class UserKeyResolver {
 
-    @Bean
+    //@Bean
     public KeyResolver userKeyResolverBean() {
         return exchange -> {
 
