@@ -33,12 +33,11 @@ spring:
             - Path=/api/core/**
           filters:
             - RewritePath=/api/(?<segment>.*), /${segment}
-            # Optional rate limiting later
-            # - name: RequestRateLimiter
-            #   args:
-            #     key-resolver: "#{@userKeyResolver}"
-            #     redis-rate-limiter.replenishRate: 10
-            #     redis-rate-limiter.burstCapacity: 20
+            - name: RequestRateLimiter
+              args:
+                key-resolver: "#{@userOrIpKeyResolverBean}"
+                redis-rate-limiter.replenishRate: 1
+                redis-rate-limiter.burstCapacity: 2
 
         # ======================
         # Notification Service (WebSocket)
