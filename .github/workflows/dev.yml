@@ -41,7 +41,7 @@ jobs:
           docker buildx build \
             --platform linux/amd64 \
             --push \
-            -t ghcr.io/dearlavion/dearlavion-api-gateway:dev \
+            -t ghcr.io/dearlavion/dearlavion-gateway-service:dev \
             .
 
       - name: Checkout Ansible repo
